@@ -37,13 +37,18 @@ namespace RogueSharpV3Tutorial
 
         public static DungeonMap DungeonMap { get; private set; }
 
+        public static Player Player { get; private set; }
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
             string consoleTitle = "RogueSharp V3 Tutorial - Level 1";
 
+            Player = new Player();
+
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
             DungeonMap = mapGenerator.CreateMap();
+
+            DungeonMap.UpdatePlayerFieldOfView();
 
             _rootConsole = new RLRootConsole(fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle);
             _mapConsole = new RLConsole(_mapWidth, _mapHeight);
@@ -53,6 +58,9 @@ namespace RogueSharpV3Tutorial
 
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
+
+            
+            
 
             _rootConsole.Run();
         }
@@ -80,6 +88,7 @@ namespace RogueSharpV3Tutorial
             RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,  _rootConsole, 0, _screenHeight - _messageHeight);
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,_rootConsole, 0, 0);
             DungeonMap.Draw(_mapConsole);
+            Player.Draw(_mapConsole, DungeonMap);
 
             _rootConsole.Draw();
         }

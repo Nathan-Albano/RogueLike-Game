@@ -20,5 +20,7 @@ namespace ConsoleApp1.Core
         public static RLColor WallFov = Swatch.Cyan2;
 
         public static RLColor TextHeading = Swatch.Gold3;
+
+        public static RLColor Player = RLColor.White;
     }
 }
