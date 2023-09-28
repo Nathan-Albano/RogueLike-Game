@@ -8,7 +8,7 @@ using RLNET;
 
 namespace ConsoleApp1.Core
 {
-    internal class DungeonMap : Map
+    public class DungeonMap : Map
     {
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
