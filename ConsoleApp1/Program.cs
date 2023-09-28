@@ -1,4 +1,5 @@
 ﻿using RLNET;
+using ConsoleApp1.Core;
 
 namespace RogueSharpV3Tutorial
 {
@@ -48,16 +49,16 @@ namespace RogueSharpV3Tutorial
 
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e) 
         {
-            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, RLColor.Black);
+            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
             _mapConsole.Print(1, 1, "MAP", RLColor.White);
 
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
 
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, RLColor.Brown);
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Gold3);
             _statConsole.Print(1, 1, "STATS", RLColor.White);
 
-            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, RLColor.Cyan);
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
             _inventoryConsole.Print(1, 1, "INVENTORY", RLColor.White);
         }
 
