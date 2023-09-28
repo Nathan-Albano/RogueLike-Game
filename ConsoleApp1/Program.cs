@@ -1,8 +1,12 @@
 ﻿using RLNET;
 using ConsoleApp1.Core;
+using ConsoleApp1.System;
+
+
 
 namespace RogueSharpV3Tutorial
 {
+
     public class Game
     {
         //Height and Width of Screen 
@@ -30,10 +34,16 @@ namespace RogueSharpV3Tutorial
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
+
+        public static DungeonMap DungeonMap { get; private set; }
+
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
             string consoleTitle = "RogueSharp V3 Tutorial - Level 1";
+
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+            DungeonMap = mapGenerator.CreateMap();
 
             _rootConsole = new RLRootConsole(fontFileName, _screenWidth, _screenHeight, 8, 8, 1f, consoleTitle);
             _mapConsole = new RLConsole(_mapWidth, _mapHeight);
@@ -69,7 +79,8 @@ namespace RogueSharpV3Tutorial
             RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
             RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,  _rootConsole, 0, _screenHeight - _messageHeight);
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,_rootConsole, 0, 0);
-           
+            DungeonMap.Draw(_mapConsole);
+
             _rootConsole.Draw();
         }
     }
