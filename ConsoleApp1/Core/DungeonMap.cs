@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RogueSharp;
 using RLNET;
+using RogueSharpV3Tutorial;
 
 namespace ConsoleApp1.Core
 {
@@ -53,6 +54,19 @@ namespace ConsoleApp1.Core
                 else
                 {
                     console.Set(cell.X, cell.Y, Colors.Wall, Colors.WallBackground, '#');
+                }
+            }
+        }
+
+        public void UpdatePlayerFieldOfView()
+        {
+            Player player = Game.Player;
+            ComputeFov(player.X, player.Y, player.Awareness, true);
+            foreach (Cell cell in GetAllCells())
+            {
+                if(IsInFov(cell.X, cell.Y))
+                {
+                    SetCellProperties(cell.X, cell.Y, cell.IsTransparent, cell.IsWalkable, true);
                 }
             }
         }
