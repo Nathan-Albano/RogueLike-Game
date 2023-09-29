@@ -105,5 +105,12 @@ namespace ConsoleApp1.Core
         {
             Rooms = new List<Rectangle> ();
         }
+
+        public void AddPlayer(Player player)
+        {
+            Game.Player = player;
+            SetIsWalkable(player.X , player.Y, false);
+            UpdatePlayerFieldOfView();
+        }
     }
 }

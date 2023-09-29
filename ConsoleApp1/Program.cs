@@ -36,18 +36,18 @@ namespace RogueSharpV3Tutorial
 
         public static DungeonMap DungeonMap { get; private set; }
 
-        public static Player Player { get; private set; }
-
         public static bool _renderRequired = true;
         public static CommandSystem CommandSystem { get; private set; }
 
         public static IRandom Random { get; private set; }
+
+        public static Player Player { get; set; }
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
             string consoleTitle = "RogueSharp V3 Tutorial - Level 1";
 
-            Player = new Player();
+
 
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
             DungeonMap = mapGenerator.CreateMap();
