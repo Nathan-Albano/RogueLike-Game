@@ -1,8 +1,7 @@
 ﻿using RLNET;
 using ConsoleApp1.Core;
 using ConsoleApp1.System;
-
-
+using RogueSharp.Random;
 
 namespace RogueSharpV3Tutorial
 {
@@ -37,18 +36,20 @@ namespace RogueSharpV3Tutorial
 
         public static DungeonMap DungeonMap { get; private set; }
 
-        public static Player Player { get; private set; }
-
         public static bool _renderRequired = true;
         public static CommandSystem CommandSystem { get; private set; }
+
+        public static IRandom Random { get; private set; }
+
+        public static Player Player { get; set; }
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
             string consoleTitle = "RogueSharp V3 Tutorial - Level 1";
 
-            Player = new Player();
 
-            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight);
+
+            MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
             DungeonMap = mapGenerator.CreateMap();
 
             DungeonMap.UpdatePlayerFieldOfView();
@@ -72,6 +73,11 @@ namespace RogueSharpV3Tutorial
             _inventoryConsole.Print(1, 1, "INVENTORY", RLColor.White);
 
             CommandSystem = new CommandSystem();
+
+            //RNG
+            int seed = (int)DateTime.UtcNow.Ticks;
+            Random = new DotNetRandom(seed);
+            string consoletitle = $"RogueSharp V3 Tutorial - Level 1- Seed {seed}";
 
             _rootConsole.Run();
         }
