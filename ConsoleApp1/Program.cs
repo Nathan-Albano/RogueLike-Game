@@ -59,17 +59,6 @@ namespace RogueSharpV3Tutorial
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
 
-            
-            
-
-            _rootConsole.Run();
-        }
-
-        private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e) 
-        {
-            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
-            _mapConsole.Print(1, 1, "MAP", RLColor.White);
-
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
 
@@ -78,6 +67,27 @@ namespace RogueSharpV3Tutorial
 
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
             _inventoryConsole.Print(1, 1, "INVENTORY", RLColor.White);
+
+
+            _rootConsole.Run();
+        }
+
+        private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e) 
+        {
+            //Moved to main so it isn't continuously being called
+            /*
+            _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
+            _mapConsole.Print(1, 1, "MAP", RLColor.White);
+            
+            _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
+            _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
+
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Gold3);
+            _statConsole.Print(1, 1, "STATS", RLColor.White);
+
+            _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
+            _inventoryConsole.Print(1, 1, "INVENTORY", RLColor.White);
+            */
         }
 
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e) 
@@ -88,7 +98,7 @@ namespace RogueSharpV3Tutorial
             RLConsole.Blit(_messageConsole, 0, 0, _messageWidth, _messageHeight,  _rootConsole, 0, _screenHeight - _messageHeight);
             RLConsole.Blit(_inventoryConsole, 0, 0, _inventoryWidth, _inventoryHeight,_rootConsole, 0, 0);
             DungeonMap.Draw(_mapConsole);
-            Player.Draw(_mapConsole, DungeonMap);
+            Player.Draw(_mapConsole, DungeonMap); 
 
             _rootConsole.Draw();
         }
