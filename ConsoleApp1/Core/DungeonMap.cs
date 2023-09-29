@@ -11,6 +11,8 @@ namespace ConsoleApp1.Core
 {
     public class DungeonMap : Map
     {
+
+        public List<Rectangle> Rooms;
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
         public void Draw(RLConsole mapConsole)
@@ -95,6 +97,13 @@ namespace ConsoleApp1.Core
         {
             ICell cell = GetCell(x, y);
             SetCellProperties(cell.X, cell.Y, cell.IsTransparent, isWalkable, cell.IsExplored);
+        }
+
+       
+
+        public DungeonMap()
+        {
+            Rooms = new List<Rectangle> ();
         }
     }
 }
