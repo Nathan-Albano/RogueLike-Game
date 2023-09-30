@@ -67,6 +67,24 @@ namespace ConsoleApp1.System
             }
             PlacePlayer();
 
+            for(int r = 1; r < _map.Rooms.Count; r++)
+            {
+                int previousRoomCenterX = _map.Rooms[r - 1].Center.X;
+                int previousRoomCenterY = _map.Rooms[r - 1].Center.Y;
+                int currentRoomCenterX = _map.Rooms[r].Center.X;
+                int currentRoomCenterY = _map.Rooms[r].Center.Y;
+
+                if(random.Next(1 , 2) == 1)
+                {
+                    CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, previousRoomCenterY);
+                    CreateVerticalTunnel(previousRoomCenterY, currentRoomCenterY, currentRoomCenterX);
+                } else
+                {
+                    CreateVerticalTunnel(previousRoomCenterY, currentRoomCenterY, previousRoomCenterX);
+                    CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, currentRoomCenterY);
+                }
+            }
+
             return _map;
         }
 
@@ -92,6 +110,22 @@ namespace ConsoleApp1.System
             player.Y = _map.Rooms[0].Center.Y;
 
             _map.AddPlayer(player);
+        }
+
+        private void CreateHorizontalTunnel(int xStart, int xEnd, int yPosition)
+        {
+            for(int x = Math.Min(xStart, xEnd); x <= Math.Max(xStart,xEnd); x++)
+            {
+                _map.SetCellProperties(x, yPosition, true, true);
+            }
+        }
+
+        private void CreateVerticalTunnel(int yStart, int yEnd, int xPosition)
+        {
+            for(int y = Math.Min(yStart, yEnd); y <= Math.Max(yStart, yEnd); y++)
+            {
+                _map.SetCellProperties(xPosition, y, true, true);
+            }
         }
     }
 }
