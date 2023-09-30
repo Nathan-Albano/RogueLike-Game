@@ -105,19 +105,19 @@ namespace RogueSharpV3Tutorial
 
             if (keyPress != null)
             {
-                if (keyPress.Key == RLKey.Up)
+                if (keyPress.Key == RLKey.Up || keyPress.Key == RLKey.W)
                 {
                     didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
                 }
-                else if (keyPress.Key == RLKey.Down)
+                else if (keyPress.Key == RLKey.Down || keyPress.Key == RLKey.S)
                 {
                     didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
                 }
-                else if (keyPress.Key == RLKey.Left)
+                else if (keyPress.Key == RLKey.Left || keyPress.Key == RLKey.A)
                 {
                     didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
                 }
-                else if (keyPress.Key == RLKey.Right)
+                else if (keyPress.Key == RLKey.Right || keyPress.Key == RLKey.D)
                 {
                     didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
                 }
