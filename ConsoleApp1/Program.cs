@@ -2,6 +2,7 @@
 using ConsoleApp1.Core;
 using ConsoleApp1.System;
 using RogueSharp.Random;
+using System.Drawing.Text;
 
 namespace RogueSharpV3Tutorial
 {
@@ -33,7 +34,7 @@ namespace RogueSharpV3Tutorial
         private static readonly int _inventoryHeight = 11;
         private static RLConsole _inventoryConsole;
 
-
+        //private static int _steps = 0;
         public static DungeonMap DungeonMap { get; private set; }
 
         public static bool _renderRequired = true;
@@ -42,6 +43,8 @@ namespace RogueSharpV3Tutorial
         public static IRandom Random { get; private set; }
 
         public static Player Player { get; set; }
+
+        public static MessageLog MessageLog { get; private set; }
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
@@ -63,9 +66,10 @@ namespace RogueSharpV3Tutorial
             _rootConsole.Update += OnRootConsoleUpdate;
             _rootConsole.Render += OnRootConsoleRender;
 
+            /*
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
-
+            */
             _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Gold3);
             _statConsole.Print(1, 1, "STATS", RLColor.White);
 
@@ -78,6 +82,12 @@ namespace RogueSharpV3Tutorial
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
             string consoletitle = $"RogueSharp V3 Tutorial - Level 1- Seed {seed}";
+
+
+            //Message Log
+            MessageLog = new MessageLog();
+            MessageLog.Add("The rogue arrives on level 1");
+            MessageLog.Add($"Level created with seed '{seed}'");
 
             _rootConsole.Run();
         }
@@ -126,8 +136,10 @@ namespace RogueSharpV3Tutorial
                     _rootConsole.Close();
                 }
             }
+       
             if (didPlayerAct)
             {
+                //MessageLog.Add($"Step # {++_steps}");
                 _renderRequired = true;
             }
         }
@@ -138,6 +150,7 @@ namespace RogueSharpV3Tutorial
             if(_renderRequired)
             {
                 DungeonMap.Draw(_mapConsole);
+                MessageLog.Draw(_messageConsole);
                 Player.Draw(_mapConsole, DungeonMap);
                 //Blit
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
