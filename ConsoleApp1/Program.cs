@@ -70,7 +70,7 @@ namespace RogueSharpV3Tutorial
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
             */
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Gold3);
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Purple1);
             _statConsole.Print(1, 1, "STATS", RLColor.White);
 
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
