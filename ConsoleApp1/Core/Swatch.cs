@@ -26,5 +26,8 @@ namespace ConsoleApp1.Core
         public static RLColor Cyan5 = new RLColor(13, 88, 88);
 
         public static RLColor Purple1 = new RLColor(82, 79, 129);
+        public static RLColor Purple2 = new RLColor(60, 0, 100);
+        public static RLColor Purple3 = new RLColor(243, 225, 255);
+
     }
 }

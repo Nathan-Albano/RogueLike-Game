@@ -70,7 +70,9 @@ namespace RogueSharpV3Tutorial
             _messageConsole.SetBackColor(0, 0, _messageWidth, _messageHeight, RLColor.Gray);
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
             */
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Purple1);
+
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Purple2);
+
             _statConsole.Print(1, 1, "STATS", RLColor.White);
 
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
@@ -152,6 +154,7 @@ namespace RogueSharpV3Tutorial
                 DungeonMap.Draw(_mapConsole);
                 MessageLog.Draw(_messageConsole);
                 Player.Draw(_mapConsole, DungeonMap);
+                Player.DrawStats(_statConsole);
                 //Blit
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
