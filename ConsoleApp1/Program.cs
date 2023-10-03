@@ -71,7 +71,8 @@ namespace RogueSharpV3Tutorial
             _messageConsole.Print(1, 1, "MESSAGES", RLColor.White);
             */
 
-            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, Swatch.Purple2);
+            _statConsole.SetBackColor(0, 0, _statWidth, _statHeight, RLColor.Black);
+            //change back later
 
             _statConsole.Print(1, 1, "STATS", RLColor.White);
 
