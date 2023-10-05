@@ -29,5 +29,9 @@ namespace ConsoleApp1.Core
         public static RLColor Purple2 = new RLColor(60, 0, 100);
         public static RLColor Purple3 = new RLColor(243, 225, 255);
 
+        public static RLColor Primary = RLColor.Brown;
+        public static RLColor PrimaryDarkest = RLColor.LightGray;
+        public static RLColor DbLight = new RLColor(150, 22, 160);
+
     }
 }

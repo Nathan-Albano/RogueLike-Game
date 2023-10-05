@@ -152,10 +152,15 @@ namespace RogueSharpV3Tutorial
             //Event Handler 
             if(_renderRequired)
             {
-                DungeonMap.Draw(_mapConsole);
+                _mapConsole.Clear();
+                _statConsole.Clear();
+                _messageConsole.Clear();
+
+                DungeonMap.Draw(_mapConsole, _statConsole);
                 MessageLog.Draw(_messageConsole);
                 Player.Draw(_mapConsole, DungeonMap);
                 Player.DrawStats(_statConsole);
+                
                 //Blit
                 RLConsole.Blit(_mapConsole, 0, 0, _mapWidth, _mapHeight, _rootConsole, 0, _inventoryHeight);
                 RLConsole.Blit(_statConsole, 0, 0, _statWidth, _statHeight, _rootConsole, _mapWidth, 0);
