@@ -10,7 +10,7 @@ using RogueSharp;
 
 namespace ConsoleApp1.Core
 {
-    public class Actor : IActor, IDrawable
+    public class Actor : IActor, IDrawable, IScheduleable 
     {
         private int _attack;
         private int _attackChance;
@@ -161,6 +161,14 @@ namespace ConsoleApp1.Core
             else
             {
                 console.Set(X, Y, Colors.Floor, Colors.FloorBackground, '.');
+            }
+        }
+
+        public int Time
+        {
+            get
+            {
+                return Speed;
             }
         }
     }

@@ -1,7 +1,10 @@
-﻿using RLNET;
+﻿using ConsoleApp1.Behaviors;
+using ConsoleApp1.System;
+using RLNET;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +22,16 @@ namespace ConsoleApp1.Core
             statConsole.SetBackColor(3, yPosition, width, 1, Swatch.Primary);
             statConsole.SetBackColor(3 + width, yPosition, remainingWidth, 1, Swatch.PrimaryDarkest);
             statConsole.Print(2, yPosition, $": {Name}", Swatch.DbLight);
+
+           
         }
+        public int? TurnsAlerted { get; set; }
+
+        public virtual void PerformAction(CommandSystem commandSystem)
+        {
+            var behavior = new StandardMoveAndAttack();
+            behavior.Act(this, commandSystem);
+        }
+
     }
 }
