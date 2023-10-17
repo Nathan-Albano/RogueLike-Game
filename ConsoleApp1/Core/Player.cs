@@ -25,6 +25,7 @@ namespace ConsoleApp1.Core
             Gold = 0;
             Health = 100;
             MaxHealth = 100;
+            Speed = 4;
             
         }
         

@@ -45,12 +45,13 @@ namespace RogueSharpV3Tutorial
         public static Player Player { get; set; }
 
         public static MessageLog MessageLog { get; private set; }
+        public static SchedulingSystem SchedulingSystem { get; private set; }
         public static void Main()
         {
             string fontFileName = "terminal8x8.png";
             string consoleTitle = "RogueSharp V3 Tutorial - Level 1";
 
-
+            SchedulingSystem = new SchedulingSystem();
 
             MapGenerator mapGenerator = new MapGenerator(_mapWidth, _mapHeight, 20, 13, 7);
             DungeonMap = mapGenerator.CreateMap();
@@ -94,11 +95,11 @@ namespace RogueSharpV3Tutorial
 
             _rootConsole.Run();
         }
-
+/*
         private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e) 
         {
             //Moved to main so it isn't continuously being called
-            /*
+            
             _mapConsole.SetBackColor(0, 0, _mapWidth, _mapHeight, Colors.FloorBackground);
             _mapConsole.Print(1, 1, "MAP", RLColor.White);
             
@@ -110,7 +111,7 @@ namespace RogueSharpV3Tutorial
 
             _inventoryConsole.SetBackColor(0, 0, _inventoryWidth, _inventoryHeight, Swatch.Blue4);
             _inventoryConsole.Print(1, 1, "INVENTORY", RLColor.White);
-            */
+            
 
             //Event Handler
             bool didPlayerAct = false;
@@ -146,7 +147,7 @@ namespace RogueSharpV3Tutorial
                 _renderRequired = true;
             }
         }
-
+        */
         private static void OnRootConsoleRender(object sender, UpdateEventArgs e) 
         {            
             //Event Handler 
@@ -175,5 +176,52 @@ namespace RogueSharpV3Tutorial
             
             
         }
+
+        private static void OnRootConsoleUpdate(object sender, UpdateEventArgs e)
+        {
+            bool didPlayerAct = false;
+            RLKeyPress keyPress = _rootConsole.Keyboard.GetKeyPress();
+
+            if (CommandSystem.IsPlayerTurn)
+            {
+                if (keyPress != null)
+                {
+                    if (keyPress.Key == RLKey.Up)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Up);
+                    }
+                    else if (keyPress.Key == RLKey.Down)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Down);
+                    }
+                    else if (keyPress.Key == RLKey.Left)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Left);
+                    }
+                    else if (keyPress.Key == RLKey.Right)
+                    {
+                        didPlayerAct = CommandSystem.MovePlayer(Direction.Right);
+                    }
+                    else if (keyPress.Key == RLKey.Escape)
+                    {
+                        _rootConsole.Close();
+                    }
+                }
+
+                if (didPlayerAct)
+                {
+                    _renderRequired = true;
+                    CommandSystem.EndPlayerTurn();
+                   
+                }
+            }
+            else
+            {
+                CommandSystem.ActivateMonsters();
+                _renderRequired = true;
+            }
+        }
+
+
     }
 }
