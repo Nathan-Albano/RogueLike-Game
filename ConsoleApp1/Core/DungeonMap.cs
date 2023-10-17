@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RogueSharp;
 using RLNET;
 using RogueSharpV3Tutorial;
+using ConsoleApp1.Interfaces;
 
 namespace ConsoleApp1.Core
 {
@@ -14,6 +15,7 @@ namespace ConsoleApp1.Core
         private readonly List<Monster> _monsters;
         public List<Rectangle> Rooms;
         Random random = new Random();
+        public List<Door> Doors;
         
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
@@ -94,13 +96,13 @@ namespace ConsoleApp1.Core
             if(GetCell (x , y).IsWalkable)
             {
                 SetIsWalkable(actor.X, actor.Y, true);
-                OpenDoor(actor, x, y);
+                
                 actor.X = x;
                 actor.Y = y;
 
                 SetIsWalkable(actor.X, actor.Y, false);
-
-                if(actor is Player)
+                OpenDoor(actor, x, y);
+                if (actor is Player)
                 {
                     UpdatePlayerFieldOfView();
                 }
@@ -183,7 +185,7 @@ namespace ConsoleApp1.Core
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
         }
 
-        public List<Door> Doors { get; set; }
+   
 
 
         public Door GetDoor(int x, int y)

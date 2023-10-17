@@ -163,12 +163,12 @@ namespace ConsoleApp1.System
             int yMin = room.Top;
             int yMax = room.Bottom;
 
-            List<ICell> borderCells = _map.GetCellsAlongLine(xMin, xMax, yMin, yMax).ToList();
+            List<ICell> borderCells = _map.GetCellsAlongLine(xMin, yMin, xMax, yMin).ToList();
             borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMin, xMin, yMax));
             borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMax, xMax, yMax));
             borderCells.AddRange(_map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
 
-            foreach(Cell cell in borderCells)
+            foreach (Cell cell in borderCells)
             {
                 if (IsPotentialDoor(cell))
                 {
