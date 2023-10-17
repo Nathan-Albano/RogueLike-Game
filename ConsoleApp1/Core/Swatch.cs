@@ -33,5 +33,10 @@ namespace ConsoleApp1.Core
         public static RLColor PrimaryDarkest = RLColor.LightGray;
         public static RLColor DbLight = new RLColor(150, 22, 160);
 
+        public static RLColor ComplimentDarkest = RLColor.LightGray;
+        public static RLColor ComplimentLightest = RLColor.LightCyan;
+        public static RLColor ComplimentDarker = RLColor.Gray;
+        public static RLColor ComplimentLighter = RLColor.Cyan;
+
     }
 }

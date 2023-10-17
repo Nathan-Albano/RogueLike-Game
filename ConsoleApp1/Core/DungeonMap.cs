@@ -14,6 +14,7 @@ namespace ConsoleApp1.Core
         private readonly List<Monster> _monsters;
         public List<Rectangle> Rooms;
         Random random = new Random();
+        
         // The Draw method will be called each time the map is updated
         // It will render all of the symbols/colors for each cell to the map sub console
         public void Draw(RLConsole mapConsole, RLConsole statConsole)
@@ -32,6 +33,10 @@ namespace ConsoleApp1.Core
                     monster.DrawStats(statConsole, i);
                     i++;
                 }
+            }
+            foreach(Door door in Doors)
+            {
+                door.Draw(mapConsole, this);
             }
         }
 
@@ -89,7 +94,7 @@ namespace ConsoleApp1.Core
             if(GetCell (x , y).IsWalkable)
             {
                 SetIsWalkable(actor.X, actor.Y, true);
-
+                OpenDoor(actor, x, y);
                 actor.X = x;
                 actor.Y = y;
 
@@ -116,6 +121,7 @@ namespace ConsoleApp1.Core
         {
             Rooms = new List<Rectangle> ();
             _monsters = new List<Monster>();
+            Doors = new List<Door>();
         }
 
         public void AddPlayer(Player player)
@@ -177,6 +183,25 @@ namespace ConsoleApp1.Core
             return _monsters.FirstOrDefault(m => m.X == x && m.Y == y);
         }
 
+        public List<Door> Doors { get; set; }
+
+
+        public Door GetDoor(int x, int y)
+        {
+            return Doors.SingleOrDefault(d => d.X == x && d.Y == y);
+        }
+
+        private void OpenDoor(Actor actor, int x, int y)
+        {
+            Door door = GetDoor(x, y);
+            if(door != null && !door.IsOpen)
+            {
+                door.IsOpen = true;
+                var cell = GetCell(x, y);
+                SetCellProperties(x, y, true, cell.IsWalkable, cell.IsExplored);
+                Game.MessageLog.Add($"{actor.Name} opened a door");
+            }
+        }
         
     }
 }
