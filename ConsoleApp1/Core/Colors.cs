@@ -23,5 +23,10 @@ namespace ConsoleApp1.Core
 
         public static RLColor Player = RLColor.White;
         public static RLColor Kobold = RLColor.Brown;
+
+        public static RLColor DoorBackground = Swatch.ComplimentDarkest;
+        public static RLColor Door = Swatch.ComplimentLighter;
+        public static RLColor DoorBackgroundFov = Swatch.ComplimentDarker;
+        public static RLColor DoorFov = Swatch.ComplimentLightest;
     }
 }

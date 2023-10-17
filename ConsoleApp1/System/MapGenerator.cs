@@ -65,7 +65,9 @@ namespace ConsoleApp1.System
             }
             foreach(Rectangle room in _map.Rooms)
             {
+
                 CreateRoom(room);
+                CreateDoors(room);
             }
             
 
@@ -153,5 +155,61 @@ namespace ConsoleApp1.System
                 
             }
         }
+
+        private void CreateDoors(Rectangle room)
+        {
+            int xMin = room.Left;
+            int xMax = room.Right;
+            int yMin = room.Top;
+            int yMax = room.Bottom;
+
+            List<ICell> borderCells = _map.GetCellsAlongLine(xMin, xMax, yMin, yMax).ToList();
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMin, xMin, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMin, yMax, xMax, yMax));
+            borderCells.AddRange(_map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
+
+            foreach(Cell cell in borderCells)
+            {
+                if (IsPotentialDoor(cell))
+                {
+                    _map.SetCellProperties(cell.X, cell.Y, false, true);
+                    _map.Doors.Add(new Door
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        IsOpen = false
+                    });
+                }
+            }
+        }
+
+        private bool IsPotentialDoor(Cell cell)
+        {
+            if (!cell.IsWalkable)
+            {
+                return false;
+            }
+
+            ICell right = _map.GetCell(cell.X + 1, cell.Y);
+            ICell left = _map.GetCell(cell.X - 1, cell.Y);
+            ICell top = _map.GetCell(cell.X, cell.Y - 1);
+            ICell bottom = _map.GetCell(cell.X, cell.Y + 1);
+
+            if(_map.GetDoor(cell.X, cell.Y) != null || _map.GetDoor(right.X, right.Y) != null || _map.GetDoor(left.X, left.Y) != null || _map.GetDoor(top.X, top.Y) != null || _map.GetDoor(bottom.X, bottom.Y) != null)
+            {
+                return false;
+            }
+
+            if(right.IsWalkable && left.IsWalkable && !top.IsWalkable && !bottom.IsWalkable)
+            {
+                return true;
+            }
+            if(!right.IsWalkable && !left.IsWalkable && top.IsWalkable && bottom.IsWalkable)
+            {
+                return true;
+            }
+            return false;
+        }
     }
+
 }
